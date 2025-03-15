@@ -1,3 +1,3 @@
 Here I will create my website.
 
-I just have a literal HTML file that I wrote during a "Learn to make your website workshop lol" 
+I just have a literal template I downloaded from the Internet and I will try to start from there and I find my way in. 
