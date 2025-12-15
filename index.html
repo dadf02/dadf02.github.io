@@ -3,199 +3,561 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dámaso Dubail | Biomedical & Microengineering</title>
+  <meta name="description" content="Dámaso Dubail — Biomedical Engineering student (EPFL/ETH Zürich). Bioelectronics, biosensors, neural data." />
+  <title>Dámaso Dubail | Biomedical Engineering</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --bg: #0b1020;
-      --card: #121833;
-      --accent: #00e5c1;
-      --accent2: #4da3ff;
-      --text: #e8ebf3;
-      --muted: #9aa4c7;
+    :root{
+      --bg0:#070A14;
+      --bg1:#0B1020;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.04);
+      --stroke: rgba(255,255,255,.10);
+      --text:#EAF0FF;
+      --muted:#A7B2D8;
+      --a:#00E5C1;   /* bio-cyan */
+      --b:#4DA3FF;   /* tech-blue */
+      --c:#B36BFF;   /* subtle purple */
+      --shadow: 0 22px 60px rgba(0,0,0,.45);
+      --radius: 22px;
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(1200px 600px at 80% -10%, rgba(77,163,255,0.15), transparent),
-                  radial-gradient(800px 500px at -10% 20%, rgba(0,229,193,0.12), transparent),
-                  var(--bg);
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1000px 700px at 80% -15%, rgba(77,163,255,.20), transparent 60%),
+        radial-gradient(900px 650px at -15% 25%, rgba(0,229,193,.18), transparent 55%),
+        radial-gradient(800px 500px at 35% 105%, rgba(179,107,255,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
+
+    /* Subtle "micro-grid" + circuit lines overlay */
+    .bg-grid{
+      position:fixed; inset:0; pointer-events:none; z-index:-2;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.06) 1px, transparent 1px);
+      background-size: 56px 56px;
+      opacity:.10;
+      mask-image: radial-gradient(closest-side at 50% 20%, black 40%, transparent 90%);
+    }
+    .bg-circuits{
+      position:fixed; inset:-20%; pointer-events:none; z-index:-1;
+      opacity:.22;
+      filter: blur(.2px);
+      transform: rotate(-8deg);
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0,229,193,.55) 0 2px, transparent 3px),
+        radial-gradient(circle at 60% 55%, rgba(77,163,255,.55) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 25%, rgba(179,107,255,.40) 0 2px, transparent 3px);
+      background-size: 220px 220px;
+      animation: floaty 14s ease-in-out infinite;
+    }
+    @keyframes floaty{0%,100%{transform:translate3d(0,0,0) rotate(-8deg)}50%{transform:translate3d(18px,-14px,0) rotate(-8deg)}}
+
+    a{color:inherit}
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(16px);
+      background: rgba(7,10,20,.55);
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .nav-inner{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 0.9rem 1.25rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 1rem;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.7rem;
+      font-weight:800; letter-spacing:.2px;
+      text-decoration:none;
+    }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background: linear-gradient(135deg, rgba(0,229,193,.95), rgba(77,163,255,.95));
+      box-shadow: 0 16px 40px rgba(0,0,0,.35);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:before{
+      content:"";
+      position:absolute; inset:-40%;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,.55), transparent 55%),
+        linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.22), rgba(255,255,255,.0));
+      transform: rotate(25deg);
+      animation: sheen 5.6s ease-in-out infinite;
+    }
+    @keyframes sheen{0%,100%{transform:translateX(-12%) rotate(25deg)}50%{transform:translateX(12%) rotate(25deg)}}
+
+    .nav-links{display:flex; gap:.55rem; flex-wrap:wrap; justify-content:flex-end}
+    .nav-links a{
+      text-decoration:none;
+      color: var(--muted);
+      font-weight:600;
+      font-size:.92rem;
+      padding:.45rem .75rem;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition: all .18s ease;
+    }
+    .nav-links a:hover{
+      color:var(--text);
+      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.10);
+      transform: translateY(-1px);
+    }
+
+    /* Layout */
+    .wrap{max-width:1100px; margin:0 auto; padding: 0 1.25rem;}
+
+    /* Hero */
+    .hero{
+      padding: 4.5rem 0 2.25rem;
+      position:relative;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 1.5rem;
+      align-items:stretch;
+    }
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+    }
+
+    .hero h1{
+      font-size: clamp(2.2rem, 4.2vw, 3.4rem);
+      line-height:1.05;
+      margin: 0 0 .8rem;
+      letter-spacing: -0.02em;
+    }
+    .grad{
+      background: linear-gradient(90deg, var(--a), var(--b), var(--c));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    .lead{
+      margin:0;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height:1.65;
+      max-width: 62ch;
+    }
+
+    .hero-card{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding: 1.25rem;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-card:after{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(600px 250px at 25% 10%, rgba(0,229,193,.12), transparent 55%);
+      pointer-events:none;
+    }
+
+    .cta-row{display:flex; gap:.75rem; flex-wrap:wrap; margin-top:1.25rem}
+    .btn{
+      display:inline-flex; align-items:center; gap:.6rem;
+      padding: .72rem 1rem;
+      border-radius: 999px;
+      font-weight:700;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
       color: var(--text);
+      transition: all .18s ease;
+      cursor:pointer;
+      user-select:none;
     }
-    header {
-      padding: 6rem 2rem 4rem;
-      text-align: center;
+    .btn:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.09)}
+    .btn.primary{
+      border-color: rgba(0,229,193,.35);
+      background: linear-gradient(135deg, rgba(0,229,193,.22), rgba(77,163,255,.18));
     }
-    header h1 {
-      font-size: 3rem;
+    .btn.primary:hover{border-color: rgba(0,229,193,.55)}
+    .pill{
+      display:inline-flex; align-items:center; gap:.55rem;
+      padding:.45rem .7rem;
+      border-radius:999px;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      font-weight:700;
+      font-size:.86rem;
+    }
+    .pills{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1.1rem}
+
+    /* Sections */
+    section{padding: 2.6rem 0}
+    .section-title{
+      display:flex; align-items:baseline; justify-content:space-between; gap:1rem;
+      margin-bottom: 1.1rem;
+    }
+    h2{
+      margin:0;
+      font-size: 1.55rem;
+      letter-spacing:-.01em;
+    }
+    .hint{color: var(--muted); font-size:.95rem}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 1rem;
+    }
+    .card{
+      border-radius: var(--radius);
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      box-shadow: 0 18px 48px rgba(0,0,0,.35);
+      padding: 1.25rem;
+      position:relative;
+      overflow:hidden;
+      transform: translateY(10px);
+      opacity: 0;
+      transition: transform .55s cubic-bezier(.2,.75,.2,1), opacity .55s ease;
+    }
+    .card.reveal{transform: translateY(0); opacity: 1;}
+    .card:hover{transform: translateY(-4px); border-color: rgba(255,255,255,.18)}
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      font-size: 0.78rem;
       font-weight: 800;
-      margin-bottom: 0.5rem;
-    }
-    header p {
-      color: var(--muted);
-      max-width: 700px;
-      margin: auto;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    nav a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      padding: 0.5rem 1rem;
+      letter-spacing:.02em;
+      padding: .26rem .62rem;
       border-radius: 999px;
-      background: linear-gradient(135deg, rgba(0,229,193,0.15), rgba(77,163,255,0.15));
-      transition: transform 0.2s, background 0.2s;
+      color: rgba(234,240,255,.92);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
     }
-    nav a:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, rgba(0,229,193,0.35), rgba(77,163,255,0.35));
+    .tag .dot{width:8px; height:8px; border-radius:99px; background: linear-gradient(135deg, var(--a), var(--b))}
+
+    .card h3{margin:.75rem 0 .35rem; font-size:1.05rem}
+    .card p{margin:.35rem 0 0; color: var(--muted); line-height:1.6}
+
+    .span-6{grid-column: span 6}
+    .span-5{grid-column: span 5}
+    .span-7{grid-column: span 7}
+    .span-4{grid-column: span 4}
+    .span-8{grid-column: span 8}
+    .span-12{grid-column: span 12}
+    @media (max-width: 900px){
+      .span-6,.span-5,.span-7,.span-4,.span-8{grid-column: span 12}
     }
-    section {
-      padding: 4rem 2rem;
-      max-width: 1100px;
-      margin: auto;
-    }
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0)), var(--card);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-      transition: transform 0.25s;
-    }
-    .card:hover { transform: translateY(-6px); }
-    .tag {
-      display: inline-block;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.6rem;
-      border-radius: 999px;
-      background: rgba(0,229,193,0.2);
-      margin-bottom: 0.5rem;
-    }
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
+
+    /* Timeline-ish list */
+    .timeline{margin:0; padding:0; list-style:none}
+    .timeline li{padding-left:1rem; border-left:2px solid rgba(255,255,255,.12); margin:.85rem 0}
+    .timeline .when{color:rgba(234,240,255,.85); font-weight:800}
+    .timeline .where{color: var(--muted)}
+
+    /* Footer */
+    footer{
+      padding: 3.5rem 0 2.5rem;
       color: var(--muted);
-      font-size: 0.9rem;
+      text-align:center;
+      font-size:.95rem;
     }
-    .links a {
-      margin: 0 0.5rem;
-      color: var(--accent2);
-      text-decoration: none;
-      font-weight: 600;
+    .links a{
+      color: rgba(77,163,255,.95);
+      text-decoration:none;
+      font-weight: 800;
+    }
+    .links a:hover{text-decoration:underline}
+
+    /* Small utilities */
+    .divider{
+      height:1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent);
+      margin: 1.75rem 0;
     }
   </style>
 </head>
+
 <body>
+  <div class="bg-grid"></div>
+  <div class="bg-circuits"></div>
 
-<header>
-  <h1>Dámaso Dubail</h1>
-  <p>Biomedical, Electrical & Microengineering enthusiast. EPFL Life Sciences Engineering student, ETH Zürich exchange. Interested in biosensors, neural data, and bioelectronics.</p>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#education">Education</a>
-    <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
+  <!-- Sticky nav (inspired by the clean, CTA-first feel of Eliot Abramo's portfolio) -->
+  <div class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="logo" aria-hidden="true"></span>
+        <span>Dámaso Dubail</span>
+      </a>
 
-<section id="about">
-  <h2>About</h2>
-  <p>I am a Life Sciences Engineering student with a strong interest in the interface between biology, electronics and microengineering. My academic path combines biomedical engineering, quantitative modeling and hands-on laboratory work, with the goal of developing impactful bioelectronic and diagnostic technologies.</p>
-</section>
-
-<section id="education">
-  <h2>Education</h2>
-  <div class="grid">
-    <div class="card">
-      <span class="tag">EPFL</span>
-      <h3>BSc Life Sciences Engineering</h3>
-      <p>2022 – 2025 · GPA 5.47 / 6.0</p>
-    </div>
-    <div class="card">
-      <span class="tag">ETH Zürich</span>
-      <h3>Exchange Student – Health Sciences & Technology</h3>
-      <p>2024 – 2025 · GPA 5.48 / 6.0</p>
+      <div class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
   </div>
-</section>
 
-<section id="experience">
-  <h2>Experience</h2>
-  <div class="grid">
-    <div class="card">
-      <span class="tag">Research</span>
-      <h3>Brain Mind Institute – EPFL</h3>
-      <p>Annotated mouse embryo brain sections using spatial transcriptomics and developed data analysis pipelines contributing to a comprehensive brain atlas.</p>
-    </div>
-    <div class="card">
-      <span class="tag">Teaching</span>
-      <h3>Student Assistant – EPFL</h3>
-      <p>Assisted first-year engineering students in General Physics and Linear Algebra courses.</p>
-    </div>
-  </div>
-</section>
+  <main id="top" class="wrap">
 
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="grid">
-    <div class="card">
-      <span class="tag">Bioelectronics</span>
-      <h3>BioSense – L-DOPA Biosensor</h3>
-      <p>Student MAKE project designing a continuous electrochemical biosensor for L-DOPA monitoring in Parkinson’s disease.</p>
-    </div>
-  </div>
-</section>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-grid">
 
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Programming</h3>
-      <p>Python, C++, Git, data analysis</p>
-    </div>
-    <div class="card">
-      <h3>Laboratory</h3>
-      <p>DNA cloning, PCR, RNA isolation, protein purification, sterile techniques</p>
-    </div>
-    <div class="card">
-      <h3>Languages</h3>
-      <p>Spanish (native), English, French</p>
-    </div>
-  </div>
-</section>
+        <div>
+          <h1>
+            Biomedical Engineering student
+            <span class="grad">building at the edge of biology & tech</span>
+          </h1>
+          <p class="lead">
+            I study Life Sciences Engineering at EPFL (with an exchange at ETH Zürich). I’m primarily focused on biomedical engineering,
+            and I love applying tools from electrical engineering and microengineering to build real-world diagnostics and bioelectronic systems.
+          </p>
 
-<section id="contact">
-  <h2>Contact</h2>
-  <p class="links">
-    <a href="mailto:damaso.dubail@gmail.com">Email</a> ·
-    <a href="https://www.linkedin.com/in/d%C3%A1maso-dubail-557564290/" target="_blank">LinkedIn</a>
-  </p>
-</section>
+          <div class="cta-row">
+            <a class="btn primary" href="#projects">See my work <span aria-hidden="true">↗</span></a>
+            <a class="btn" href="#contact">Contact me <span aria-hidden="true">↗</span></a>
+            <!-- Optional: drop your PDF into /assets/cv.pdf and this becomes live -->
+            <a class="btn" href="assets/cv.pdf" target="_blank" rel="noopener">CV <span aria-hidden="true">↗</span></a>
+          </div>
 
-<footer>
-  © 2025 Dámaso Dubail · Biomedical × Electrical × Microengineering
-</footer>
+          <div class="pills" aria-label="Highlights">
+            <span class="pill">Bioelectronics</span>
+            <span class="pill">Biosensors</span>
+            <span class="pill">Neural data</span>
+            <span class="pill">Wet lab + Python</span>
+          </div>
+        </div>
 
+        <aside class="hero-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem;">
+            <div>
+              <span class="tag"><span class="dot"></span> Currently</span>
+              <h3 style="margin:.65rem 0 .25rem; font-size:1.1rem;">EPFL · ETH Zürich</h3>
+              <p style="margin:0; color:var(--muted); line-height:1.55;">Life Sciences Engineering (BSc) · Health Sciences & Technology exchange</p>
+            </div>
+            <div style="min-width:120px; text-align:right;">
+              <div style="font-weight:900; font-size:1.25rem; letter-spacing:-.02em;">Zurich ↔ Lausanne</div>
+              <div style="color:var(--muted); font-weight:700; font-size:.9rem;">Switzerland</div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <ul class="timeline" aria-label="Quick timeline">
+            <li>
+              <div class="when">2024 · Summer in the Lab Scholar</div>
+              <div class="where">EPFL Brain Mind Institute — Brain development & spatial transcriptomics</div>
+            </li>
+            <li>
+              <div class="when">2023–present · Student Assistant</div>
+              <div class="where">EPFL — General Physics & Linear Algebra (multiple courses)</div>
+            </li>
+            <li>
+              <div class="when">2025–present · BioSense team</div>
+              <div class="where">Continuous L-DOPA biosensor for Parkinson’s disease</div>
+            </li>
+          </ul>
+        </aside>
+
+      </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-title">
+        <h2><span class="grad">About</span></h2>
+        <div class="hint">biomed first · tech-inspired</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span-8">
+          <span class="tag"><span class="dot"></span> Profile</span>
+          <h3>Biomedical engineering, powered by EE & microtools</h3>
+          <p>
+            I’m interested in how we can translate biology into signals we can measure, interpret, and act on.
+            That’s why I’m drawn to biosensors, bioelectronics, and quantitative approaches—combining wet lab skills with computation to prototype and validate ideas.
+          </p>
+        </div>
+        <div class="card span-4">
+          <span class="tag"><span class="dot"></span> Focus</span>
+          <h3>What I’m building toward</h3>
+          <p>
+            Continuous sensing, neuro-inspired measurement, and robust experimental pipelines—designed for real biological complexity.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-title">
+        <h2><span class="grad">Education</span></h2>
+        <div class="hint">EPFL · ETH Zürich</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span-6">
+          <span class="tag"><span class="dot"></span> EPFL</span>
+          <h3>BSc Life Sciences Engineering</h3>
+          <p>2022 – 2025 · GPA 5.47 / 6.0</p>
+        </div>
+        <div class="card span-6">
+          <span class="tag"><span class="dot"></span> ETH Zürich</span>
+          <h3>Exchange Student — Health Sciences & Technology</h3>
+          <p>2024 – 2025 · GPA 5.48 / 6.0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-title">
+        <h2><span class="grad">Experience</span></h2>
+        <div class="hint">research · teaching</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span-7">
+          <span class="tag"><span class="dot"></span> Research Internship</span>
+          <h3>EPFL Brain Mind Institute — Laboratory of Brain Development & Biological Data Science</h3>
+          <p>
+            Summer in the Lab Scholar (Summer 2024). Annotated mouse embryo brain sections using spatial transcriptomics and contributed to the development of a comprehensive mouse brain atlas,
+            including analysis scripts to support consistent annotation and downstream interpretation.
+          </p>
+        </div>
+
+        <div class="card span-5">
+          <span class="tag"><span class="dot"></span> Teaching</span>
+          <h3>Student Assistant — EPFL (2023–present)</h3>
+          <p>
+            Supported multiple cohorts across General Physics and Linear Algebra courses.
+            Helped students build intuition, debug problem-solving steps, and prepare for exams.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-title">
+        <h2><span class="grad">Projects</span></h2>
+        <div class="hint">hands-on engineering</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span-12">
+          <span class="tag"><span class="dot"></span> BioSense — EPFL SenseUs</span>
+          <h3>Continuous L-DOPA biosensor for Parkinson’s disease</h3>
+          <p>
+            Student MAKE project to design and prototype an innovative biosensor for continuous sensing of L-DOPA.
+            Focus on robust signal acquisition, calibration strategies, and translating electrochemical measurements into usable readouts.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-title">
+        <h2><span class="grad">Skills</span></h2>
+        <div class="hint">code · lab · languages</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span-4">
+          <span class="tag"><span class="dot"></span> Programming</span>
+          <h3>Python · C++ · Git</h3>
+          <p>Data analysis, scientific scripting, and reproducible workflows.</p>
+        </div>
+        <div class="card span-4">
+          <span class="tag"><span class="dot"></span> Wet lab</span>
+          <h3>Molecular & protein work</h3>
+          <p>DNA cloning, RNA isolation, PCR, restriction digestion, protein purification, E. coli transformation, sterile techniques, QC.</p>
+        </div>
+        <div class="card span-4">
+          <span class="tag"><span class="dot"></span> Languages</span>
+          <h3>Spanish · English · French</h3>
+          <p>Native Spanish; working proficiency in English and French.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title">
+        <h2><span class="grad">Contact</span></h2>
+        <div class="hint">let’s build</div>
+      </div>
+
+      <div class="grid">
+        <div class="card span-8">
+          <span class="tag"><span class="dot"></span> Reach me</span>
+          <h3>Open to research, projects, and collaborations</h3>
+          <p class="links" style="margin-top:.6rem;">
+            <a href="mailto:damaso.dubail@gmail.com">damaso.dubail@gmail.com</a>
+            &nbsp;·&nbsp;
+            <a href="https://www.linkedin.com/in/d%C3%A1maso-dubail-557564290/" target="_blank" rel="noopener">LinkedIn</a>
+          </p>
+          <div class="cta-row" style="margin-top:1rem">
+            <a class="btn primary" href="mailto:damaso.dubail@gmail.com">Email me ↗</a>
+            <a class="btn" href="https://www.linkedin.com/in/d%C3%A1maso-dubail-557564290/" target="_blank" rel="noopener">Connect ↗</a>
+          </div>
+        </div>
+
+        <div class="card span-4">
+          <span class="tag"><span class="dot"></span> Quick note</span>
+          <h3>GitHub Pages ready</h3>
+          <p>
+            This site is a single <b>index.html</b> file. Add <b>assets/cv.pdf</b> if you want the CV button to work.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Dámaso Dubail · Biomedical Engineering · applying EE & microengineering to biology
+    </footer>
+
+  </main>
+
+  <script>
+    // Smooth reveal-on-scroll
+    const cards = document.querySelectorAll('.card');
+    const io = new IntersectionObserver((entries)=>{
+      for(const e of entries){
+        if(e.isIntersecting){
+          e.target.classList.add('reveal');
+          io.unobserve(e.target);
+        }
+      }
+    }, { threshold: 0.12 });
+    cards.forEach(c=>io.observe(c));
+  </script>
 </body>
 </html>
