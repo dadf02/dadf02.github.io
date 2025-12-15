@@ -89,19 +89,16 @@
     }
     .logo{
       width:34px; height:34px; border-radius:12px;
-      background: linear-gradient(135deg, rgba(0,229,193,.95), rgba(77,163,255,.95));
+      background: transparent;
       box-shadow: 0 16px 40px rgba(0,0,0,.35);
       position:relative;
       overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
     }
-    .logo:before{
-      content:"";
-      position:absolute; inset:-40%;
-      background:
-        radial-gradient(circle at 30% 40%, rgba(255,255,255,.55), transparent 55%),
-        linear-gradient(90deg, rgba(255,255,255,.0), rgba(255,255,255,.22), rgba(255,255,255,.0));
-      transform: rotate(25deg);
-      animation: sheen 5.6s ease-in-out infinite;
+    .logo img{
+      width:100%; height:100%;
+      object-fit: cover;
+      display:block;
     }
     @keyframes sheen{0%,100%{transform:translateX(-12%) rotate(25deg)}50%{transform:translateX(12%) rotate(25deg)}}
 
@@ -308,7 +305,7 @@
   <div class="nav">
     <div class="nav-inner">
       <a class="brand" href="#top" aria-label="Home">
-        <span class="logo" aria-hidden="true"></span>
+        <span class="logo" aria-hidden="true"><img src="images/logo.jpg" alt="Logo"></span>
         <span>Dámaso Dubail</span>
       </a>
 
@@ -335,8 +332,7 @@
             <span class="grad">building at the edge of biology & tech</span>
           </h1>
           <p class="lead">
-            I study Life Sciences Engineering at EPFL (with an exchange at ETH Zürich). I’m primarily focused on biomedical engineering,
-            and I love applying tools from electrical engineering and microengineering to build real-world diagnostics and bioelectronic systems.
+            I study Life Sciences Engineering at EPFL. I’m focused on engineering solutions in biomedical technologies — especially in bioelectronics and biosensing, with growing interests in biomechanics and microfluidics.
           </p>
 
           <div class="cta-row">
@@ -351,6 +347,8 @@
             <span class="pill">Biosensors</span>
             <span class="pill">Neural data</span>
             <span class="pill">Wet lab + Python</span>
+            <span class="pill">Biomechanics</span>
+            <span class="pill">Microfluidics</span>
           </div>
         </div>
 
@@ -358,8 +356,8 @@
           <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem;">
             <div>
               <span class="tag"><span class="dot"></span> Currently</span>
-              <h3 style="margin:.65rem 0 .25rem; font-size:1.1rem;">EPFL · ETH Zürich</h3>
-              <p style="margin:0; color:var(--muted); line-height:1.55;">Life Sciences Engineering (BSc) · Health Sciences & Technology exchange</p>
+              <h3 style="margin:.65rem 0 .25rem; font-size:1.1rem;">Master — Life Sciences Engineering</h3>
+              <p style="margin:0; color:var(--muted); line-height:1.55;">Minor: Biomedical Technologies · EPFL</p>
             </div>
             <div style="min-width:120px; text-align:right;">
               <div style="font-weight:900; font-size:1.25rem; letter-spacing:-.02em;">Zurich ↔ Lausanne</div>
@@ -371,15 +369,11 @@
 
           <ul class="timeline" aria-label="Quick timeline">
             <li>
-              <div class="when">2024 · Summer in the Lab Scholar</div>
-              <div class="where">EPFL Brain Mind Institute — Brain development & spatial transcriptomics</div>
-            </li>
-            <li>
-              <div class="when">2023–present · Student Assistant</div>
+              <div class="when">2023–present · Teaching Assistant</div>
               <div class="where">EPFL — General Physics & Linear Algebra (multiple courses)</div>
             </li>
             <li>
-              <div class="when">2025–present · BioSense team</div>
+              <div class="when">Present · BioSense team</div>
               <div class="where">Continuous L-DOPA biosensor for Parkinson’s disease</div>
             </li>
           </ul>
@@ -456,8 +450,7 @@
           <span class="tag"><span class="dot"></span> Teaching</span>
           <h3>Student Assistant — EPFL (2023–present)</h3>
           <p>
-            Supported multiple cohorts across General Physics and Linear Algebra courses.
-            Helped students build intuition, debug problem-solving steps, and prepare for exams.
+            Supported multiple cohorts across General Physics and Linear Algebra courses. I genuinely enjoy teaching, so being a TA is a way for me to help others build intuition, confidence, and strong problem-solving habits.
           </p>
         </div>
       </div>
@@ -530,14 +523,7 @@
           </div>
         </div>
 
-        <div class="card span-4">
-          <span class="tag"><span class="dot"></span> Quick note</span>
-          <h3>GitHub Pages ready</h3>
-          <p>
-            This site is a single <b>index.html</b> file. Add <b>assets/cv.pdf</b> if you want the CV button to work.
-          </p>
         </div>
-      </div>
     </section>
 
     <footer>
